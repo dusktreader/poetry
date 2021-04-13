@@ -174,7 +174,7 @@ class Authenticator:
             self._get_certs_for_netloc_from_config(netloc),
         )
 
-    def _get_repository_netlocs(self) -> Generator[[str, str], None, None]:
+    def _get_repository_netlocs(self) -> Generator[Tuple[str, str], None, None]:
         for repository_name in self._config.get("repositories", []):
             repository_config = self._config.get(f"repositories.{repository_name}")
             if not repository_config:
