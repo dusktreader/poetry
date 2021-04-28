@@ -72,7 +72,7 @@ class Authenticator:
         verify = kwargs.get("verify", certs.get("verify"))
         cert = kwargs.get("cert", certs.get("cert"))
 
-        if isinstance(cert, pathlib.PurePath):
+        if cert is not None:
             cert = str(cert)
 
         if isinstance(verify, pathlib.PurePath):
@@ -187,9 +187,7 @@ class Authenticator:
             parsed_url = urllib.parse.urlsplit(url)
             yield (repository_name, parsed_url.netloc)
 
-    def _get_certs_for_netloc_from_config(
-        self, netloc: str
-    ) -> Dict[str, pathlib.PosixPath]:
+    def _get_certs_for_netloc_from_config(self, netloc: str) -> Dict[str, pathlib.Path]:
         certs = dict(cert=None, verify=None)
 
         for (repository_name, repository_netloc) in self._get_repository_netlocs():
